@@ -10,7 +10,7 @@ interface ColaboradorResquet{
 
 class PrimeiroAcessoService{
     async execute({matricula,admissao,cpf,senha}:ColaboradorResquet) {
-        if(!matricula || admissao || cpf || senha){
+        if(!matricula || !admissao || !cpf || !senha){
             throw new Error("Dados insuficientes para cadastro")
         }
         const 

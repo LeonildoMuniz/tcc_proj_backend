@@ -10,7 +10,7 @@ class PrimeiroAcessoController{
             matricula,
             admissao,
             cpf,
-            senha
+            senha,
         });
 
         return res.json(cadastrado)
