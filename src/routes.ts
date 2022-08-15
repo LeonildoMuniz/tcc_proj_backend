@@ -16,6 +16,8 @@ import {InformacaoController} from './cotrollers/informacao/InformacaoController
 import {estaAutenticadoMens} from './middlewares/estaAutenticadoMens';
 import {AutenticarMensController} from './cotrollers/autenticacao/AutenticacaoMensController';
 import {ConsultaInfoController} from './cotrollers/informacao/ConsultaInfoController';
+import {RemoveInfoController} from './cotrollers/informacao/RemoveInfoController';
+import {PrimeiroAcessoController} from './cotrollers/colaborador/PrimeiroAcessoController'
 import uploadConfig from './config/multer';
 
 const router = Router();
@@ -39,6 +41,12 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 
 //rotas de consulta
 router.get('/userinfo', estaAutenticadoCol, new DetalheColaboradorController().handle) // verifica o colaborador logado
-router.get('/listamensagem',estaAutenticadoMens, new ConsultaInfoController().handle)
+router.get('/listamensagem',estaAutenticadoMens, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
+
+//rotas de deletar
+router.delete('/removeinfo',estaAutenticadoMens, new RemoveInfoController().handle) //deleta uma mensagem
+
+//rota de autualização de dados
+router.post('/primeiroacesso', new PrimeiroAcessoController().handle) //Atualiza dados para o primeiro acesso de um usuario
 
 export {router};
