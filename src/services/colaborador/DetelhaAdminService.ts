@@ -1,6 +1,6 @@
 import primaClient from "../../prisma";
 
-class DetalheColaboradorService{
+class DetelhaAdminService{
     async execute(user_id:string){
         const user = await primaClient.colaborador.findFirst({
             where:{
@@ -17,4 +17,4 @@ class DetalheColaboradorService{
     }
 }
 
-export {DetalheColaboradorService}
+export {DetelhaAdminService}
