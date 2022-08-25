@@ -19,13 +19,14 @@ import {ConsultaInfoController} from './cotrollers/informacao/ConsultaInfoContro
 import {RemoveInfoController} from './cotrollers/informacao/RemoveInfoController';
 import {PrimeiroAcessoController} from './cotrollers/colaborador/PrimeiroAcessoController'
 import uploadConfig from './config/multer';
+import { ConsultaEmpresaController } from './cotrollers/empresa/ConsultaEmpresaController';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
 
 //rotas de cadastros
 router.post('/cargo', estaAutenticado, new CriarCargoController().handle) //cria cargo
-router.post('/empresa', estaAutenticado, new CriarEmpresaController().handle) // cria empresa
+router.post('/empresa',estaAutenticado ,new CriarEmpresaController().handle) // cria empresa
 router.post('/estabelecimento', estaAutenticado, new CriarEstabelecimentoController().handle) //cria estabelecimento
 router.post('/alocacao',estaAutenticado, new CriarAlocacaoController().handle) // cria alocacao
 router.post('/estrutura',estaAutenticado, new CriarEstruturaController().handle) // cria estrutura
@@ -43,6 +44,8 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/listamensagem',estaAutenticadoCol, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
+router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas
+
 
 //rotas de deletar
 router.delete('/removeinfo',estaAutenticadoMens, new RemoveInfoController().handle) //deleta uma mensagem
