@@ -20,6 +20,8 @@ import {RemoveInfoController} from './cotrollers/informacao/RemoveInfoController
 import {PrimeiroAcessoController} from './cotrollers/colaborador/PrimeiroAcessoController'
 import uploadConfig from './config/multer';
 import { ConsultaEmpresaController } from './cotrollers/empresa/ConsultaEmpresaController';
+import { ConsultaAlocacaoController } from './cotrollers/alocacao/ConsultaAlocacaoController';
+import { ConsultaEstabelecimentoController } from './cotrollers/estabelecimento/ConsultaEstabelecimentoController';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -45,6 +47,8 @@ router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/listamensagem',estaAutenticadoCol, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
 router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas
+router.get('/consultaestabelecimento', estaAutenticado, new ConsultaEstabelecimentoController().handle) // lista estabelecimento
+router.get('/consultaalocacao',estaAutenticado, new ConsultaAlocacaoController().handle) //lista centros de custo
 
 
 //rotas de deletar
