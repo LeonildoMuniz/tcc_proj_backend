@@ -3,17 +3,31 @@ import {InformacaoService} from '../../services/informacao/InformacaoService'
 
 class InformacaoController{
     async handle(req:Request, res:Response){
-        const {titulo,mensagem,anexo,id_colaborador} = req.body;
+        const {titulo,mensagem,id_colaborador} = req.body;
         const informacaoServico = new InformacaoService();
 
-        const informacao = await informacaoServico.execute({
-            titulo,
-            mensagem,
-            anexo,
-            id_colaborador
-        });
+        if(!req.file){
+            const anexo ='';
+            const informacao = await informacaoServico.execute({
+                titulo,
+                mensagem,
+                anexo,
+                id_colaborador
+            });
+            return res.json(informacao)
+        }else{
+            const {originalname,filename:anexo} = req.file;
+            const informacao = await informacaoServico.execute({
+                titulo,
+                mensagem,
+                anexo,
+                id_colaborador
+            });
+            return res.json(informacao)
+        }
 
-        return res.json(informacao)
+
+        
     }
 }
 

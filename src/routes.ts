@@ -22,6 +22,10 @@ import uploadConfig from './config/multer';
 import { ConsultaEmpresaController } from './cotrollers/empresa/ConsultaEmpresaController';
 import { ConsultaAlocacaoController } from './cotrollers/alocacao/ConsultaAlocacaoController';
 import { ConsultaEstabelecimentoController } from './cotrollers/estabelecimento/ConsultaEstabelecimentoController';
+import { ConsultaNivelController } from './cotrollers/nivel/ConsultaNivelController';
+import { ConsultaEstruturaService } from './services/estrutura/ConsultaEstruturaService';
+import { ConsultaEstruturaController } from './cotrollers/estrutura/ConsultaEstruturaController';
+import { ConsultaCargoController } from './cotrollers/cargo/ConsultaCargoContoller';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -34,7 +38,7 @@ router.post('/alocacao',estaAutenticado, new CriarAlocacaoController().handle) /
 router.post('/estrutura',estaAutenticado, new CriarEstruturaController().handle) // cria estrutura
 router.post('/nivel',estaAutenticado, new CriarNivelController().handle) // cria nivel
 router.post('/colaborador',estaAutenticado, upload.single('file'), new CriarColaboradorController().handle) // cria colaborados
-router.post('/comunicacao',estaAutenticadoMens, new InformacaoController().handle) // cria comunicados para os colaboradores
+router.post('/comunicacao',estaAutenticado, upload.single('file'), new InformacaoController().handle) // cria comunicados para os colaboradores
 
 //rota de autenticacao login
 router.post('/session', new AutenticarUserController().handle) //admin
@@ -49,6 +53,9 @@ router.get('/listamensagem',estaAutenticadoCol, new ConsultaInfoController().han
 router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas
 router.get('/consultaestabelecimento', estaAutenticado, new ConsultaEstabelecimentoController().handle) // lista estabelecimento
 router.get('/consultaalocacao',estaAutenticado, new ConsultaAlocacaoController().handle) //lista centros de custo
+router.get('/consultanivel', estaAutenticado, new ConsultaNivelController().handle)
+router.get('/consultaestrutura', estaAutenticado, new ConsultaEstruturaController().handle) // lista estrutura
+router.get('/consultacargo', estaAutenticado, new ConsultaCargoController().handle) //lista cargos
 
 
 //rotas de deletar
