@@ -4,6 +4,8 @@ class ConsultaInfoService{
     async execute(){
         const info = await primaClient.info.findMany({
             select:{
+                id:true,
+                id_colaborador:true,
                 titulo:true,
                 mensagem: true,
                 anexo: true,

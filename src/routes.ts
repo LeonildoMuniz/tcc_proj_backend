@@ -26,6 +26,9 @@ import { ConsultaNivelController } from './cotrollers/nivel/ConsultaNivelControl
 import { ConsultaEstruturaService } from './services/estrutura/ConsultaEstruturaService';
 import { ConsultaEstruturaController } from './cotrollers/estrutura/ConsultaEstruturaController';
 import { ConsultaCargoController } from './cotrollers/cargo/ConsultaCargoContoller';
+import {InformacaoController2} from './cotrollers/informacao2/InformacaoController2'
+import { ConsultaInfoController2 } from './cotrollers/informacao2/ConsultaInfoController2';
+import { RemoveInfoController2 } from './cotrollers/informacao2/RemoveInfoController2';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -38,7 +41,9 @@ router.post('/alocacao',estaAutenticado, new CriarAlocacaoController().handle) /
 router.post('/estrutura',estaAutenticado, new CriarEstruturaController().handle) // cria estrutura
 router.post('/nivel',estaAutenticado, new CriarNivelController().handle) // cria nivel
 router.post('/colaborador',estaAutenticado, upload.single('file'), new CriarColaboradorController().handle) // cria colaborados
-router.post('/comunicacao',estaAutenticado, upload.single('file'), new InformacaoController().handle) // cria comunicados para os colaboradores
+router.post('/comunicacao',estaAutenticado , upload.single('file'), new InformacaoController().handle) // cria comunicados para os colaboradores
+router.post('/comunicacao2',estaAutenticadoMens , upload.single('file'), new InformacaoController2().handle) // cria comunicados para os colaboradores
+
 
 //rota de autenticacao login
 router.post('/session', new AutenticarUserController().handle) //admin
@@ -49,7 +54,8 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 //rotas de consulta
 router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
-router.get('/listamensagem',estaAutenticadoCol, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
+router.get('/listamensagem',estaAutenticado, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
+router.get('/listamensagem2',estaAutenticadoMens, new ConsultaInfoController2().handle) //lista todas mensagem sem filtro
 router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas
 router.get('/consultaestabelecimento', estaAutenticado, new ConsultaEstabelecimentoController().handle) // lista estabelecimento
 router.get('/consultaalocacao',estaAutenticado, new ConsultaAlocacaoController().handle) //lista centros de custo
@@ -59,7 +65,10 @@ router.get('/consultacargo', estaAutenticado, new ConsultaCargoController().hand
 
 
 //rotas de deletar
-router.delete('/removeinfo',estaAutenticadoMens, new RemoveInfoController().handle) //deleta uma mensagem
+router.delete('/removeinfo',estaAutenticado	, new RemoveInfoController().handle) //deleta uma mensagem
+router.delete('/removeinfo2',estaAutenticadoMens, new RemoveInfoController2().handle) //deleta uma mensagem
+
+
 
 //rota de autualização de dados
 router.post('/primeiroacesso', new PrimeiroAcessoController().handle) //Atualiza dados para o primeiro acesso de um usuario

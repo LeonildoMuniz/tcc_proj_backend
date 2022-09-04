@@ -56,7 +56,8 @@ class AutenticarMensService{
         return {
             id: usuario.id,
             nome: usuario.nome,
-            token: token
+            token: token,
+            valor: ''
         }
 
     }
