@@ -20,6 +20,10 @@ class AutenticarColService{
         if(usuario.acesso===false){
             throw new Error("Usuario sem acesso, efetuar primeiro cadastro")
         }
+
+        if(usuario.admin===true){
+            throw new Error("Usuario incopativel com acesso")
+        }
         
         const senhaCompara = await compare(senha, usuario.senha)
 

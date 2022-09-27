@@ -13,6 +13,7 @@ class CriarColaboradorController{
             admin,
             estrutura_id,
             cargo_id,
+            dt_nascimento,
             alocacao_id} = req.body;
 
         const criarColaboradorService = new CriarColaboradorService();
@@ -33,6 +34,7 @@ class CriarColaboradorController{
                 estrutura_id,
                 cargo_id,
                 alocacao_id,
+                dt_nascimento,
         });
         return res.json(colaborador)
 
@@ -53,6 +55,7 @@ class CriarColaboradorController{
                 estrutura_id,
                 cargo_id,
                 alocacao_id,
+                dt_nascimento,
         });
         return res.json(colaborador)
         }

@@ -1,10 +1,13 @@
 import {Request,Response} from 'express'
-import {ConsultaInfoService} from '../../services/informacao/ConsultaInfoService'
+import {ConsultaInfoService2} from '../../services/informacao2/ConsultaInfoService2'
 
 class ConsultaInfoController2{
     async handle(req:Request, res:Response){
-        const  listarInfo = new ConsultaInfoService();
-        const mensagens = await listarInfo.execute();
+        const {id} = req.body;
+        const  listarInfo = new ConsultaInfoService2();
+        const mensagens = await listarInfo.execute({
+            id:id,
+        });
         return res.json(mensagens);
     }
 }

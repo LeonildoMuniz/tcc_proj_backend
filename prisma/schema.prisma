@@ -32,6 +32,7 @@ model Colaborador{
   cpf String
   senha String
   foto String
+  dt_nascimento String
   acesso Boolean @default(false)
   status Boolean @default(true)
   admin Boolean @default(false)

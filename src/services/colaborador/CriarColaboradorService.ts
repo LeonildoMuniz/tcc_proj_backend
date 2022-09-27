@@ -14,11 +14,12 @@ interface ColaboradorResquet{
     estrutura_id: string;
     cargo_id: string;
     alocacao_id: string;
+    dt_nascimento: string;
 
 }
 
 class CriarColaboradorService{
-    async execute({nome,matricula,admissao,cpf,senha,foto,acesso,admin,status,estrutura_id,cargo_id,alocacao_id}:ColaboradorResquet) {
+    async execute({nome,matricula,admissao,cpf,senha,foto,acesso,admin,status,estrutura_id,cargo_id,alocacao_id,dt_nascimento}:ColaboradorResquet) {
         if(!matricula){
             throw new Error("Colaborador não existe")
         }
@@ -48,6 +49,8 @@ class CriarColaboradorService{
                 estrutura_id:estrutura_id,
                 cargo_id:cargo_id,
                 alocacao_id:alocacao_id,
+                dt_nascimento: dt_nascimento
+
             }
         })
         return colaborador;

@@ -38,6 +38,11 @@ class AutenticarMensService{
         if(nivel.controle<2){
             throw new Error("Cargo não permite acesso a essa opção")
         }
+
+        if(usuario.admin===true){
+            throw new Error("Usuario incopativel com acesso")
+        }
+        
         
 
         const token = sign(

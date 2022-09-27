@@ -29,6 +29,9 @@ import { ConsultaCargoController } from './cotrollers/cargo/ConsultaCargoContoll
 import {InformacaoController2} from './cotrollers/informacao2/InformacaoController2'
 import { ConsultaInfoController2 } from './cotrollers/informacao2/ConsultaInfoController2';
 import { RemoveInfoController2 } from './cotrollers/informacao2/RemoveInfoController2';
+import { MensagemController } from './cotrollers/mensagem/MensagemController';
+import { EditaInfoController } from './cotrollers/informacao/EditaInfoController';
+import { Mensagem2Controller } from './cotrollers/mensagem2/Mensagem2Controller';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -54,6 +57,8 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 //rotas de consulta
 router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
+router.get('/mensagem', estaAutenticado, new MensagemController().handle) //consulta uma mensagem especifica
+router.get('/mensagem2', estaAutenticadoMens, new Mensagem2Controller().handle) //consulta mensagem especifica 
 router.get('/listamensagem',estaAutenticado, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
 router.get('/listamensagem2',estaAutenticadoMens, new ConsultaInfoController2().handle) //lista todas mensagem sem filtro
 router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas
@@ -66,11 +71,12 @@ router.get('/consultacargo', estaAutenticado, new ConsultaCargoController().hand
 
 //rotas de deletar
 router.delete('/removeinfo',estaAutenticado	, new RemoveInfoController().handle) //deleta uma mensagem
-router.delete('/removeinfo2',estaAutenticadoMens, new RemoveInfoController2().handle) //deleta uma mensagem
+router.delete('/removeinfo2',estaAutenticadoMens,new RemoveInfoController2().handle) //deleta uma mensagem
 
 
 
 //rota de autualização de dados
-router.post('/primeiroacesso', new PrimeiroAcessoController().handle) //Atualiza dados para o primeiro acesso de um usuario
+router.put('/primeiroacesso', new PrimeiroAcessoController().handle) //Atualiza dados para o primeiro acesso de um usuario
+router.put('/atualizainfo', estaAutenticado, upload.single('file'), new EditaInfoController().handle) //atualiza mensagem
 
 export {router};
