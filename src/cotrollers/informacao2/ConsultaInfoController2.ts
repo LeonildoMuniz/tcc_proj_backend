@@ -3,10 +3,11 @@ import {ConsultaInfoService2} from '../../services/informacao2/ConsultaInfoServi
 
 class ConsultaInfoController2{
     async handle(req:Request, res:Response){
-        const {id} = req.body;
+        const id = req.query.id as string;
         const  listarInfo = new ConsultaInfoService2();
+
         const mensagens = await listarInfo.execute({
-            id:id,
+            id_colaborador:id
         });
         return res.json(mensagens);
     }

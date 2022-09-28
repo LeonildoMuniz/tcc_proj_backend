@@ -69,6 +69,8 @@ router.get('/consultaestrutura', estaAutenticado, new ConsultaEstruturaControlle
 router.get('/consultacargo', estaAutenticado, new ConsultaCargoController().handle) //lista cargos
 
 
+
+
 //rotas de deletar
 router.delete('/removeinfo',estaAutenticado	, new RemoveInfoController().handle) //deleta uma mensagem
 router.delete('/removeinfo2',estaAutenticadoMens,new RemoveInfoController2().handle) //deleta uma mensagem

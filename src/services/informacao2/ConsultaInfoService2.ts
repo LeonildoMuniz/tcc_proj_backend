@@ -1,24 +1,14 @@
 import primaClient from "../../prisma";
 
-
-
 interface informacaoResquet{
-    id: string;
+    id_colaborador: string;
 }
 
 class ConsultaInfoService2{
-    async execute({id}:informacaoResquet){
+    async execute({id_colaborador}:informacaoResquet){
         const info = await primaClient.info.findMany({
             where:{
-                id_colaborador:id
-            },
-            select:{
-                id:true,
-                id_colaborador:true,
-                titulo:true,
-                mensagem: true,
-                anexo: true,
-                data_envio: true
+                id_colaborador:id_colaborador
             }
         })
         return info;
