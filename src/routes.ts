@@ -32,6 +32,7 @@ import { RemoveInfoController2 } from './cotrollers/informacao2/RemoveInfoContro
 import { MensagemController } from './cotrollers/mensagem/MensagemController';
 import { EditaInfoController } from './cotrollers/informacao/EditaInfoController';
 import { Mensagem2Controller } from './cotrollers/mensagem2/Mensagem2Controller';
+import { Mensagem3Controller } from './cotrollers/mensagem3/Mensagem3Controller';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -58,7 +59,8 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/mensagem', estaAutenticado, new MensagemController().handle) //consulta uma mensagem especifica
-router.get('/mensagem2', estaAutenticadoMens, new Mensagem2Controller().handle) //consulta mensagem especifica 
+router.get('/mensagem2', new Mensagem2Controller().handle) //consulta mensagem especifica 
+router.get('/mensagem3', new Mensagem3Controller().handle) //consulta todos comunicados
 router.get('/listamensagem',estaAutenticado, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
 router.get('/listamensagem2',estaAutenticadoMens, new ConsultaInfoController2().handle) //lista todas mensagem sem filtro
 router.get('/consultaempresa', estaAutenticado, new ConsultaEmpresaController().handle) //lista empresas

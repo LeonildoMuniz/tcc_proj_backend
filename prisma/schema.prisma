@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,113 +7,106 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-//executar a criação: yarn prisma migrate dev
-
-model Estrutura{
-  id String @id @default(uuid())
-  UnidadeOrg String
-
-colaborador Colaborador[]
+model Estrutura {
+  id          String        @id @default(uuid())
+  UnidadeOrg  String
+  colaborador Colaborador[]
 
   @@map("tb_estr")
 }
 
-
-//ultimo Cadastro
-model Colaborador{
-  id String @id @default(uuid())
-  nome String 
-  matricula String
-  admissao String
-  cpf String
-  senha String
-  foto String
+model Colaborador {
+  id            String    @id @default(uuid())
+  nome          String
+  matricula     String
+  admissao      String
+  senha         String
+  acesso        Boolean   @default(false)
+  status        Boolean   @default(true)
+  dt_cad        DateTime? @default(now())
+  dt_atu        DateTime? @default(now())
+  estrutura_id  String
+  foto          String
+  alocacao_id   String
+  cargo_id      String
+  admin         Boolean   @default(false)
+  cpf           String
   dt_nascimento String
-  acesso Boolean @default(false)
-  status Boolean @default(true)
-  admin Boolean @default(false)
+  alocacao      Alocacao  @relation(fields: [alocacao_id], references: [id])
+  cargo         Cargo     @relation(fields: [cargo_id], references: [id])
+  estrutura     Estrutura @relation(fields: [estrutura_id], references: [id])
+  info          Info[]
 
-
-  dt_cad DateTime? @default(now())
-  dt_atu DateTime? @default(now())
-
-  estrutura Estrutura @relation(fields: [estrutura_id], references: [id])
-  cargo Cargo @relation(fields: [cargo_id],references: [id])
-  alocacao Alocacao @relation(fields: [alocacao_id], references: [id])
-  info Info[]
+  @@index([alocacao_id], map: "tb_col_alocacao_id_fkey")
+  @@index([cargo_id], map: "tb_col_cargo_id_fkey")
+  @@index([estrutura_id], map: "tb_col_estrutura_id_fkey")
   @@map("tb_col")
-  estrutura_id String
-  cargo_id String
-  alocacao_id String
 }
 
-//Quarto Cadastro
-model Cargo{
-  id String @id @default(uuid())
-  descricao String
-  gestor Boolean @default(false)
+model Cargo {
+  id          String        @id @default(uuid())
+  descricao   String
+  gestor      Boolean       @default(false)
+  nivel_id    String
+  nivel       Nivel         @relation(fields: [nivel_id], references: [id])
+  colaborador Colaborador[]
 
-  nivel Nivel @relation(fields: [nivel_id],references: [id])
-  colaborador Colaborador[]  
+  @@index([nivel_id], map: "tb_car_nivel_id_fkey")
   @@map("tb_car")
-  nivel_id String
-
 }
 
-//Terceiro Cadastro
-model Alocacao{
-  id String @id @default(uuid())
-  c_custo Int
-  desc_custo String
-
-  estabelecimento Estabelecimento @relation(fields: [estabelecimento_id],references: [id])
-  colaborador Colaborador[]  
-  @@map("tb_alo")
+model Alocacao {
+  id                 String          @id @default(uuid())
+  c_custo            Int
+  desc_custo         String
   estabelecimento_id String
+  estabelecimento    Estabelecimento @relation(fields: [estabelecimento_id], references: [id])
+  colaborador        Colaborador[]
+
+  @@index([estabelecimento_id], map: "tb_alo_estabelecimento_id_fkey")
+  @@map("tb_alo")
 }
 
-//Segundo Cadastro
-model Estabelecimento{ 
-  id String @id @default(uuid())
-  estab Int
+model Estabelecimento {
+  id         String     @id @default(uuid())
+  estab      Int
   desc_estab String
-
-  empresa Empresa @relation(fields: [empresa_id], references: [id])
-  alocacao Alocacao[]
-  @@map("tb_est")
   empresa_id String
+  empresa    Empresa    @relation(fields: [empresa_id], references: [id])
+  alocacao   Alocacao[]
+
+  @@index([empresa_id], map: "tb_est_empresa_id_fkey")
+  @@map("tb_est")
 }
 
-//Primeiro cadastro
-model Empresa{ 
-  id String @id @default(uuid())
-  empresa Int
-  desc_empresa String
-
+model Empresa {
+  id              String            @id @default(uuid())
+  empresa         Int
+  desc_empresa    String
   estabelecimento Estabelecimento[]
+
   @@map("tb_emp")
 }
 
-model Nivel{
-  id String @id @default(uuid())
-  controle Int
+model Nivel {
+  id         String  @id @default(uuid())
   desc_nivel String
-
-  cargo Cargo[] 
+  controle   Int
+  cargo      Cargo[]
 
   @@map("tb_niv")
 }
 
-model Info{
-  id String @id @default(uuid())
-  titulo String
-  mensagem String
-  anexo String
-  data_envio DateTime? @default(now())
-
-  colaborador Colaborador @relation(fields: [id_colaborador],references: [id])
-  @@map("tb_inf")
+model Info {
+  id             String      @id @default(uuid())
+  titulo         String
+  mensagem       String
+  anexo          String
   id_colaborador String
+  data_envio     DateTime?   @default(now())
+  colaborador    Colaborador @relation(fields: [id_colaborador], references: [id])
+
+  @@index([id_colaborador], map: "tb_inf_id_colaborador_fkey")
+  @@map("tb_inf")
 }
 

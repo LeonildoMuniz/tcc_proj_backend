@@ -2,17 +2,31 @@ import primaClient from "../../prisma";
 
 
 interface informacaoResquet{
-    id: string;
+    estrutura_id: string;
 }
 
 class Mensagem2Service{
-    async execute({id}:informacaoResquet){
-        const info = await primaClient.info.findUnique({
+
+    async execute({estrutura_id}:informacaoResquet){
+
+
+        const chat = await primaClient.info.findMany({
             where:{
-                id:id
+                colaborador:{
+                    estrutura_id:estrutura_id
+                }
+            },
+            include:{
+                colaborador:{
+                
+                }
+            },
+            orderBy:{
+                data_envio:'desc'
             }
+
         })
-        return info;
+        return chat
     }
 }
 

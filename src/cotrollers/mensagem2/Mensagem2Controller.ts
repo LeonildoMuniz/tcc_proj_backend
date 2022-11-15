@@ -3,11 +3,11 @@ import {Mensagem2Service} from '../../services/mensagem2/Mensagem2Service'
 
 class Mensagem2Controller{
     async handle(req:Request, res:Response){
-        const id = req.query.id as string;
+        const estrutura_id = req.query.estrutura_id as string;
         const cosulta = new Mensagem2Service();
 
         const consInfo = await cosulta.execute({
-            id
+            estrutura_id: estrutura_id
         });
 
         return res.json(consInfo)

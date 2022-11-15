@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `tb_inf` ADD COLUMN `data_envio` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3);

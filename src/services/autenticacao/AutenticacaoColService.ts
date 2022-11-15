@@ -47,6 +47,7 @@ class AutenticarColService{
         return {
             id: usuario.id,
             nome: usuario.nome,
+            estrutura: usuario.estrutura_id,
             token: token,
             valor:''
         }
