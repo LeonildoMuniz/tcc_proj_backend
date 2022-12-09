@@ -1,7 +1,4 @@
-import { format } from "mysql2";
 import primaClient from "../../prisma";
-
-
 
 class Mensagem3Service{
     async execute(){

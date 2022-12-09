@@ -3,7 +3,7 @@ import {DetalheColaboradorService} from '../../services/colaborador/DetalheColab
 
 class DetalheColaboradorController{
     async handle(req:Request, res: Response){
-        const user_id = req.user_id;
+        const user_id = req.query.id as string;
 
         const detalhecolaborador = new DetalheColaboradorService();
         const colaborado = await detalhecolaborador.execute(user_id)

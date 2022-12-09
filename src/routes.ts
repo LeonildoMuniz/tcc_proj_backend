@@ -33,6 +33,11 @@ import { MensagemController } from './cotrollers/mensagem/MensagemController';
 import { EditaInfoController } from './cotrollers/informacao/EditaInfoController';
 import { Mensagem2Controller } from './cotrollers/mensagem2/Mensagem2Controller';
 import { Mensagem3Controller } from './cotrollers/mensagem3/Mensagem3Controller';
+import {ConsAnversarianteController} from './cotrollers/aniversariante/ConsAnversarianteController'
+import {ConsNovosColController} from './cotrollers/novosColaboradores/ConsNovosColController'
+import { StatusController } from './cotrollers/status/statusController';
+import { ListaColaboradoresController } from './cotrollers/colaborador/ListaColaboradorController';
+import { AtualizaColaboradorController } from './cotrollers/colaborador/AtualizaColaboradorController';
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"))
@@ -56,9 +61,9 @@ router.post('/session3', new AutenticarMensController().handle) //colaborador we
 
 
 //rotas de consulta
-router.get('/userinfo', estaAutenticadoMens, new DetalheColaboradorController().handle) // verifica o colaborador logado
+router.get('/userinfo', new DetalheColaboradorController().handle) // verifica o colaborador logado
 router.get('/userinfo2', estaAutenticado, new DetalheColaboradorController().handle) // verifica o colaborador logado
-router.get('/mensagem', estaAutenticado, new MensagemController().handle) //consulta uma mensagem especifica
+router.get('/mensagem',  new MensagemController().handle) //consulta uma mensagem especifica
 router.get('/mensagem2', new Mensagem2Controller().handle) //consulta mensagem especifica 
 router.get('/mensagem3', new Mensagem3Controller().handle) //consulta todos comunicados
 router.get('/listamensagem',estaAutenticado, new ConsultaInfoController().handle) //lista todas mensagem sem filtro
@@ -69,6 +74,10 @@ router.get('/consultaalocacao',estaAutenticado, new ConsultaAlocacaoController()
 router.get('/consultanivel', estaAutenticado, new ConsultaNivelController().handle)
 router.get('/consultaestrutura', estaAutenticado, new ConsultaEstruturaController().handle) // lista estrutura
 router.get('/consultacargo', estaAutenticado, new ConsultaCargoController().handle) //lista cargos
+router.get('/aniversariantes', new ConsAnversarianteController().handle) //lista aniversariantes
+router.get('/nvcolaboradores', new ConsNovosColController().handle) //lista novos colaboradores
+router.get('/status', new StatusController().handle) //verificar se o colaborador está ativo
+router.get('/listacolaborador', estaAutenticado, new ListaColaboradoresController().handle) // lista colaboradores
 
 
 
@@ -81,6 +90,9 @@ router.delete('/removeinfo2',estaAutenticadoMens,new RemoveInfoController2().han
 
 //rota de autualização de dados
 router.put('/primeiroacesso', new PrimeiroAcessoController().handle) //Atualiza dados para o primeiro acesso de um usuario
-router.put('/atualizainfo', estaAutenticado, upload.single('file'), new EditaInfoController().handle) //atualiza mensagem
+router.put('/atualizainfo', upload.single('file'), new EditaInfoController().handle) //atualiza mensagem
+router.put('/atualizacolaborador', upload.single('file'), new AtualizaColaboradorController().handle) // atualiza colaborador
+
+
 
 export {router};
